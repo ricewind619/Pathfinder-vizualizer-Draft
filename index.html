@@ -17,13 +17,13 @@
     <!-- <button>Start</button>
     <button>Stop</button> -->
     <script src="sketch.js"></script>
-    
-      
+    <h1 id="title">A* Algorithm Visualizer</h1>
+    <div id="main">
       <div id="real-text" >
-        <h1 id="title">A* Algorithm Visualizer</h1>
-        <h2 id="Instruction">Click on Set Start button</h2>
-        <p id="warning"></p>
-        <!-- <ul id="legends"> -->
+        
+        <div id="Instruction">Click on Set Start button</div>
+      
+        <div id="legends">
           <li class="start-text">Start is coloured Pink</li>
           <li class="end-text">End is coloured Brown</li>
           <li class="wall-text">Walls are coloured Aqua</li>
@@ -31,21 +31,21 @@
           <li class="old">Paths done searching is coloured Red</li>
           <li class="path">Final path is coloured Blue</li>
 
-        <!-- </ul> -->
+        </div>
 
       </div>
     
-    <div id="container">
-    
-    <div id="button_container">
-      <button id="setWalls" disabled onclick="setWalls()">Set Walls</button>
-      <button id="setStart" onclick="setStart()">Set Start</button>
-      <button id="setEnd" disabled onclick="setEnd()">Set End</button>
-      <button id="vizualize" disabled onclick="begin()">Vizualize</button>
-      <button id="reset" onclick="Reset()">Reset</button>
-    </div> 
+      <div id="container">
+      
+        <div id="button_container">
+          <button id="setWalls" disabled onclick="setWalls()">Set Walls</button>
+          <button id="setStart" onclick="setStart()">Set Start</button>
+          <button id="setEnd" disabled onclick="setEnd()">Set End</button>
+          <button id="vizualize" disabled onclick="begin()">Vizualize</button>
+          <button id="reset" onclick="Reset()">Reset</button>
+        </div> 
+      </div>
     </div>
-    
       
   </body>
 </html>
