@@ -4,9 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sketch</title>
+    <title>A* Pathfinder Vizualizer</title>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
 
     <script src="./p5.min.js"></script>
     <script src="./p5.sound.min.js"></script>
@@ -16,36 +15,49 @@
   <body id="body">
     <!-- <button>Start</button>
     <button>Stop</button> -->
-    <script src="sketch.js"></script>
-    <h1 id="title">A* Algorithm Visualizer</h1>
+    <!-- <script src="sketch.js"></script> -->
+    <div id="title">A* Pathfinding Algorithm Visualizer</div>
     <div id="main">
       <div id="real-text" >
         
-        <div id="Instruction">Click on Set Start button</div>
+        <div id="Instruction">Choose your grid size and click on Set Start button</div>
       
         <div id="legends">
-          <li class="start-text">Start is coloured Pink</li>
-          <li class="end-text">End is coloured Brown</li>
-          <li class="wall-text">Walls are coloured Aqua</li>
-          <li class="new">Paths newly searching is coloured Yellow</li>
-          <li class="old">Paths done searching is coloured Red</li>
-          <li class="path">Final path is coloured Blue</li>
+          <li class="start-text"><div class="x"><span class="dot" id="P"></span><div class="colors">Pink:Start</div></div> </li>
+          <li class="end-text"><div class="x"><span class="dot" id="Q"></span><div class="colors">Brown End</div></div> </li>
+          <li class="wall-text"><div class="x"><span class="dot" id="R"></span><div class="colors">Aqua Walls</div></div> </li>
+          <li class="new"><div class="x"><span class="dot" id="S"></span><div class="colors">New Paths Yellow</div></div> </li>
+          <li class="old"><div class="x"><span class="dot" id="T"></span><div class="colors">Old Paths Red</div></div> </li>
+          <li class="path"><div class="x"><span class="dot" id="U"></span><div class="colors">Final Path Blue</div> </div></li>
 
         </div>
 
       </div>
     
       <div id="container">
+        
+        <div class="slider_container">          
+          <div id="label"> How big is your grid? </div>
+          <!-- <p id="test"></p> -->
+          <input type="range" min="5" max="35" value="20" step="15" class="slider" id="myRange" >
+          <!-- <div> Another brick in the Wall! </div>
+          <input type="range" min="0.05" max="0.35" value="0.15" step="0.1" class="slider" id="myWalls" > -->
+        </div>
+
       
         <div id="button_container">
-          <button id="setWalls" disabled onclick="setWalls()">Set Walls</button>
-          <button id="setStart" onclick="setStart()">Set Start</button>
-          <button id="setEnd" disabled onclick="setEnd()">Set End</button>
-          <button id="vizualize" disabled onclick="begin()">Vizualize</button>
-          <button id="reset" onclick="Reset()">Reset</button>
+          <button class="button-33" id="setWalls" disabled onclick="setWalls()">Set Walls</button>
+          <button class="button-33" id="setStart" onclick="setStart()">Set Start</button>
+          <button class="button-33" id="setEnd" disabled onclick="setEnd()">Set End</button>
+          <button class="button-33" id="vizualize" disabled onclick="begin()">Vizualize</button>
+          <button class="button-33" id="reset" onclick="Reset()">Reset</button>
         </div> 
+        
       </div>
     </div>
-      
+    <link rel="stylesheet" type="text/css" href="style.css">  
+    <script src="sketch.js"></script> 
+    
+ 
   </body>
 </html>
