@@ -1,4 +1,6 @@
 
+
+
 function removeFromArray(arr, elt) {
   // Could use indexOf here instead to be more efficient
   for (var i = arr.length - 1; i >= 0; i--) {
@@ -7,6 +9,25 @@ function removeFromArray(arr, elt) {
     }
   }
 }
+//***SLIDER */
+// var slider = document.getElementById("myRange");
+// var output = document.getElementById("demo");
+// output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+// function slider(){
+//   var slider = document.getElementById("myRange");
+//   var cols = slider.value;
+//   console.log("Cols and Rows", slider.value);
+//   var rows = slider.value;
+
+// }
+
+// slider.oninput = function() {
+// var cols = this.value;
+// var rows = this.value;
+  
+// }
  
 function heuristic(a,b){
   var d = abs(a.i - b.i) + abs(a.j - b.j); 
@@ -20,7 +41,7 @@ function setWalls(){
   }
 
   document.getElementById("setWalls").disabled = true;
-  document.getElementById("Instruction").innerHTML = "Create walls by clicking on boxes. <br>Walls cannot be start or end. <br> Click Vizualize to begin."
+  document.getElementById("Instruction").innerHTML = "Create walls by clicking on boxes. Walls cannot be start or end. Click Vizualize to begin."
 
   // else{
   //   started = false;
@@ -50,6 +71,9 @@ function setStart(){
   if(set_start===0){
     set_start=1;
   }
+  slider.disabled = true;
+  slider.style.display ="none";
+  document.getElementById("label").style.display = "none";
   document.getElementById("Instruction").innerHTML = "Position start by clicking on a box";
   
   document.getElementById("setStart").disabled = true;
@@ -75,8 +99,60 @@ var started = false;
 var ended = false;
 var set_start = 0;
 var set_end = 0;
-var cols = 10;
-var rows = 10;
+var r = document.querySelector(':root');
+var rs = getComputedStyle(r);
+var canvasX= rs.getPropertyValue('--canvas_x');
+var canvasY= rs.getPropertyValue('--canvas_y');
+
+//****SLIDER **/
+var slider =document.getElementById("myRange");
+// var output =document.getElementById("test");
+var rows = slider.value;
+var cols = slider.value;
+slider.onchange = function (){
+  // output.innerHTML = slider.value;
+  rows = slider.value;
+  cols = slider.value;
+  w = canvasX / cols;
+  h = canvasY / rows;
+  setup();
+}
+console.log("Slider", slider.value);
+
+//**Trail stuff **////
+
+console.log("Canvas X and CanvasY", canvasX,canvasY);
+w = canvasX / cols;
+h = canvasY / rows;
+
+  // for (var i =0; i < cols; i ++)
+  // {
+  //   grid[i] = new Array(rows); 
+  // }
+  
+  // //console.log(grid);
+
+  // for (var i =0; i < cols; i ++)
+  // {
+  //   for (var j = 0; j < rows; j ++)
+  //   {
+  //     grid[i][j] =  new Spot(i,j);
+  //   }
+  // }
+
+  // for (var i =0; i < cols; i ++)
+  // {
+  //   for (var j = 0; j < rows; j ++)
+  //   {
+  //     grid[i][j].addNeighbours(grid);
+  //   }
+  // }
+
+
+
+
+
+// var rows = 10;
 // grid [cols][rows] format 
 var grid = new Array(cols);
 var openSet = [];
@@ -101,6 +177,59 @@ function Spot(i,j) {
   this.wall = false;
 //**********BEFORE UPDATES ANY *****/
 
+// this.dragged = function (){
+
+//   var x_distance = (mouseX - this.i*w);
+//   var y_distance = (mouseY - this.j*h);
+//   var start_x_distance =(mouseX - start_x);
+//   var start_y_distance =(mouseY - start_y);
+//   var end_x_distance =(mouseX - end_x);
+//   var end_y_distance =(mouseY - end_y);
+
+//   if(set_walls===1){
+
+//       if(slider.value>5){
+
+//           //**WALL CONSTRUCTOR***/// */ 30% chance of obstacle
+//           // if((mouseX>0 && mouseX<=canvasX )&& (mouseY>0 && mouseY<=canvasY))
+//           // {
+
+
+//           if (random(1)< 0.25){
+//             this.wall = true;
+//           }
+//         // } REMOVE THIS FOR THE MOUSEX&Y LIMITS
+//       }
+
+//     // document.getElementById("setWalls").disabled = true;
+//     // document.getElementById("Instruction").innerHTML = "Set walls by clicking on boxes. Walls cannot be start or end. <br> Click Vizualize to begin."
+//     if(slider.value<=5){
+//       if(x_distance<=(w - 1) && mouseX >= (this.i*w) && 
+//       y_distance<=(h - 1) && mouseY >=(this.j*h)) {
+//         wall_x=this.i;
+//         wall_y=this.j;
+//         console.log("Wall's x and y", wall_x, wall_y);
+//         if((wall_x===start_x && wall_y===start_y) ||(wall_x===end_x && wall_y===end_y))
+//         {
+//           document.getElementById("Instruction").style.fontSize="large";
+//           document.getElementById("Instruction").innerHTML="WALLS CANNOT BE START OR END.<br>CLICK ON ANOTHER BOX OR SET VIZUALIZE";
+//           document.body.style.background= "rgb(135,206,235)";       
+//         }
+//         else{       
+        
+//           if(this.wall===false){
+//             this.wall = true;
+//           }
+//           document.getElementById("Instruction").innerHTML = "Keep selecting walls or set vizualize";
+//           document.body.style.background = "rgb(135,206,235)";
+//        }
+//       }
+//     }//most recent
+//   }
+
+
+// }
+
 this.clicked = function() {
   
   var x_distance = (mouseX - this.i*w);
@@ -109,6 +238,9 @@ this.clicked = function() {
   var start_y_distance =(mouseY - start_y);
   var end_x_distance =(mouseX - end_x);
   var end_y_distance =(mouseY - end_y);
+  var x1=mouseX;
+  var y1=mouseY;
+
 
   //var click_distance = dist(mouseX, mouseY, this.x, this.y);
 
@@ -130,6 +262,11 @@ this.clicked = function() {
   }
 
   if(set_end === 1){
+    
+    
+
+
+
     if(x_distance<=(w - 1) && mouseX >= (this.i*w) && 
   y_distance<=(h - 1) && mouseY >=(this.j*h)) {
      
@@ -153,22 +290,46 @@ this.clicked = function() {
             document.getElementById("setWalls").disabled = false;
             document.getElementById("vizualize").disabled = false;
             document.getElementById("Instruction").innerHTML = "Click on Set Walls button";
-            document.getElementById("warning").innerHTML = "";
+            // document.getElementById("warning").innerHTML = "";
             document.body.style.background = "rgb(135,206,235)";
           }
       }/**INSERT } AFTER THIS */
     
-}
+  }
 
   
 
   if(set_walls===1){
 
+
+
+    //**WALL CONSTRUCTOR***/// */ 30% chance of obstacle
+        if(slider.value>5){
+
+         
+
+            if((x1>0) && (x1<canvasX) && (y1>0) && (y1<canvasY) ){
+              console.log("MouseX",mouseX);
+              console.log("MouseY",mouseY);
+
+
+              if (random(1)< 0.05){
+                  this.wall = true;
+              }
+            }
+        }  
+    
+
     // document.getElementById("setWalls").disabled = true;
     // document.getElementById("Instruction").innerHTML = "Set walls by clicking on boxes. Walls cannot be start or end. <br> Click Vizualize to begin."
-
+      if(slider.value<=5){
+      
       if(x_distance<=(w - 1) && mouseX >= (this.i*w) && 
       y_distance<=(h - 1) && mouseY >=(this.j*h)) {
+
+        
+
+
         wall_x=this.i;
         wall_y=this.j;
         console.log("Wall's x and y", wall_x, wall_y);
@@ -179,15 +340,22 @@ this.clicked = function() {
           document.body.style.background= "rgb(135,206,235)";       
         }
         else{       
+
+          // if (random(1)< 0.1){
+          //   this.wall = true;
+          // }
         
+          
           if(this.wall===false){
+            
             this.wall = true;
           }
           document.getElementById("Instruction").innerHTML = "Keep selecting walls or set vizualize";
           document.body.style.background = "rgb(135,206,235)";
        }
       }
-    }
+    }//most recently placed
+  }
 
 };
 
@@ -232,20 +400,24 @@ this.clicked = function() {
   };
 }
 
+
 function setup() {
-  var r = document.querySelector(':root');
-  var rs = getComputedStyle(r);
-  var canvasX= rs.getPropertyValue('--canvas_x');
-  var canvasY= rs.getPropertyValue('--canvas_y');
-  console.log("Canvas X and CanvasY", canvasX,canvasY);
+  
+  // var r = document.querySelector(':root');
+  // var rs = getComputedStyle(r);
+  // var canvasX= rs.getPropertyValue('--canvas_x');
+  // var canvasY= rs.getPropertyValue('--canvas_y');
+  // console.log("Canvas X and CanvasY", canvasX,canvasY);
   
   var cnv = createCanvas(canvasX, canvasY);
   cnv.parent("container");
   console.log("A* algorithm");
   //button_1=document.getElementById("start");
-  w = width / cols;
-  h = height / rows;
-
+  // rows=slider.value;
+  // cols=slider.value;
+  // w = canvasX / cols;
+  // h = canvasY / rows;
+//create();
   // Making a 2D array
   for (var i =0; i < cols; i ++)
   {
@@ -274,6 +446,55 @@ function setup() {
 }
 
 function draw() {
+
+  
+  // var r = document.querySelector(':root');
+  // var rs = getComputedStyle(r);
+  // var canvasX= rs.getPropertyValue('--canvas_x');
+  // var canvasY= rs.getPropertyValue('--canvas_y');
+  // console.log("Canvas X and CanvasY", canvasX,canvasY);
+
+  // var slider =document.getElementById("myRange");
+  // var output =document.getElementById("test");
+  // output.innerHTML = slider.value;
+  // var cols = slider.value; 
+  // var rows = slider.value;  
+  // w = canvasX / cols;
+  // h = canvasY / rows;
+  //   slider.oninput = function () {
+  //   output.innerHTML = slider.value;
+  //   var cols = slider.value; 
+  //   var rows = slider.value;
+  //   w = canvasX / cols;
+  //   h = canvasY / rows;
+  //   redraw();
+  // }
+
+//  // Making a 2D array
+//   for (var i =0; i < cols; i ++)
+//   {
+//     grid[i] = new Array(rows); 
+//   }
+  
+//   //console.log(grid);
+
+//   for (var i =0; i < cols; i ++)
+//   {
+//     for (var j = 0; j < rows; j ++)
+//     {
+//       grid[i][j] =  new Spot(i,j);
+//     }
+//   }
+
+//   for (var i =0; i < cols; i ++)
+//   {
+//     for (var j = 0; j < rows; j ++)
+//     {
+//       grid[i][j].addNeighbours(grid);
+//     }
+//   }
+
+
   if(set_start===2){
     start = grid[start_x][start_y];
     end = grid[cols - 1][rows - 1];
@@ -438,3 +659,18 @@ function mousePressed() {
   }
 
 }
+
+// function mouseDragged() {
+
+//   for (var i =0; i < cols; i ++)
+//   {
+//     for (var j = 0; j < rows; j ++)
+//     {
+    
+//       grid[i][j].dragged();
+
+//     }
+    
+//   }
+
+// }
