@@ -30,8 +30,8 @@ function removeFromArray(arr, elt) {
 // }
  
 function heuristic(a,b){
-  var d = abs(a.i - b.i) + abs(a.j - b.j); 
-  //dist(a.i,b.i,a.j,b.j);
+  var d = //abs(a.i - b.i) + abs(a.j - b.j); 
+  dist(a.i,b.i,a.j,b.j);
   return d;
 }
 
@@ -253,6 +253,7 @@ this.clicked = function() {
         console.log("Start's x and y", start_x,start_y);
         set_start = 2;
         console.log("Value of set_start", set_start);
+        start=grid[start_x][start_y];
         document.getElementById("setEnd").disabled = false;
         document.getElementById("Instruction").innerHTML = "Click Set End button";
         document.body.style.background = "rgb(90, 145, 22)";
@@ -284,7 +285,9 @@ this.clicked = function() {
             this.isEnd=true;
             end_x=this.i;
             end_y=this.j;
+            end=grid[end_x][end_y];
             console.log("End's x and y", end_x,end_y);
+            end=grid[end_x][end_y];
             set_end = 2;
             console.log("Value of set_end", set_end);
             document.getElementById("setWalls").disabled = false;
@@ -315,6 +318,9 @@ this.clicked = function() {
 
               if (random(1)< 0.05){
                   this.wall = true;
+                  start.wall=false;
+                  end.wall=false;
+
               }
             }
         }  
