@@ -60,7 +60,7 @@ function begin() {
     console.log("Algo has begun", started);
     document.getElementById("Instruction").innerHTML = "PATHFINDING....";
     document.getElementById("warning").innerHTML = "";
-    document.body.style.background = "rgb(135,206,235)";
+    document.body.style.background = "rgb(90, 145, 22);";
   
   document.getElementById("vizualize").disabled = true;
 
@@ -77,7 +77,7 @@ function setStart(){
   document.getElementById("Instruction").innerHTML = "Position start by clicking on a box";
   
   document.getElementById("setStart").disabled = true;
-  document.body.style.background = "rgb(135,206,235)";
+  document.body.style.background = "rgb(90, 145, 22)";
   console.log("Value of set_start", set_start);
 }
 
@@ -87,7 +87,7 @@ function setEnd(){
   }
   document.getElementById("setEnd").disabled = true;
   document.getElementById("Instruction").innerHTML = "Position End by clicking on a box.<br>End cannot be same as start";
-  document.body.style.background = "rgb(135,206,235)";
+  document.body.style.background = "rgb(90, 145, 22)";
   console.log("Value of set_end", set_end);
 
 
@@ -255,7 +255,7 @@ this.clicked = function() {
         console.log("Value of set_start", set_start);
         document.getElementById("setEnd").disabled = false;
         document.getElementById("Instruction").innerHTML = "Click Set End button";
-        document.body.style.background = "rgb(135,206,235)";
+        document.body.style.background = "rgb(90, 145, 22)";
 
       }
         
@@ -278,7 +278,7 @@ this.clicked = function() {
           if(end_x===start_x && end_y===start_y){
             document.getElementById("warning").innerHTML="";
             document.getElementById("Instruction").innerHTML = "END CANNOT BE START.CLICK ON ANOTHER BOX.";
-            document.body.style.background= "rgb(135,206,235)";
+            document.body.style.background= "rgb(90, 145, 22)";
           }
           else{
             this.isEnd=true;
@@ -291,7 +291,7 @@ this.clicked = function() {
             document.getElementById("vizualize").disabled = false;
             document.getElementById("Instruction").innerHTML = "Click on Set Walls button";
             // document.getElementById("warning").innerHTML = "";
-            document.body.style.background = "rgb(135,206,235)";
+            document.body.style.background = "rgb(90, 145, 22)";
           }
       }/**INSERT } AFTER THIS */
     
@@ -337,7 +337,7 @@ this.clicked = function() {
         {
           document.getElementById("Instruction").style.fontSize="large";
           document.getElementById("Instruction").innerHTML="WALLS CANNOT BE START OR END.<br>CLICK ON ANOTHER BOX OR SET VIZUALIZE";
-          document.body.style.background= "rgb(135,206,235)";       
+          document.body.style.background= "rgb(90, 145, 22)";       
         }
         else{       
 
@@ -351,7 +351,7 @@ this.clicked = function() {
             this.wall = true;
           }
           document.getElementById("Instruction").innerHTML = "Keep selecting walls or set vizualize";
-          document.body.style.background = "rgb(135,206,235)";
+          document.body.style.background = "rgb(90, 145, 22)";
        }
       }
     }//most recently placed
@@ -552,7 +552,7 @@ function draw() {
                 //add path
                 noLoop();
                 document.getElementById("Instruction").innerHTML = "PATH HAS BEEN FOUND!!";
-                document.body.style.background= "rgb(135,206,235)";
+                document.body.style.background= "rgb(90, 145, 22)";
                 
                 console.log("DONE!");
               }
@@ -597,7 +597,7 @@ function draw() {
             console.log("no solution");
             document.getElementById("Instruction").innerHTML = "NO PATH FOUND...";
             document.getElementById("Instruction").style.color= "white";
-            document.body.style.background= "rgb(135,206,235)";
+            document.body.style.background= "rgb(90, 145, 22)";
             
             
             ended = true;
