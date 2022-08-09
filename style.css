@@ -72,11 +72,28 @@ html, body {
 
  .slidecontainer {
   width: 100%; /* Width of the outside container */
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#label{
+#label {
   margin-bottom:2%;
+}
+#choice{
+  margin-bottom:2%;
+}
+
+#algo_type{
+background:#c2fbd7;
+color:black;
+width:100%;
+display: flex;
+align-items: center;
+justify-content: center;
+padding-left:40px;
+
 }
 
 /* The slider itself */
@@ -401,6 +418,13 @@ canvas {
   background-color: #d3d3d3;
 }
 #label{
+  font-size: large;
+  color:white;
+  padding:20px;
+  margin:10px;
+}
+#choice
+{
   font-size: large;
   color:white;
   padding:20px;
