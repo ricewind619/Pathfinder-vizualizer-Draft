@@ -590,7 +590,7 @@ function draw() {
                     if(newPath){
 
                     neighbour.h = heuristic(neighbour, end); 
-                    neighbour.f = neighbour.g + neighbour.f;
+                    neighbour.f = neighbour.g + neighbour.h;
                     neighbour.previous = current;
                     }
                   }
