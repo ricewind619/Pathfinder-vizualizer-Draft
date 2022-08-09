@@ -1,4 +1,32 @@
+//***function to get type of algo *///
+let algo_type = document.getElementById('algo_type');
+console.log("algo_type",algo_type);
+var selected = algo_type.options[algo_type.selectedIndex].text;
+console.log("selected",selected);
+algo_type.onchange = function(){
+  selected = algo_type.options[algo_type.selectedIndex].text;
+  console.log("selected",selected);
+}
 
+  // if (selected ==="Bubble Sort"){
+  //     return await bubbleSort(unsorted_array);
+  // }
+  // if (selected === "Selection Sort"){
+  //    return await selectionSort(unsorted_array);
+  // }
+  // // if (selected === "Insertion Sort"){
+  // //     return await insertionSort(unsorted_array);
+  // // }
+  //  if (selected === 'Heap Sort'){
+  //     return await heapSort(unsorted_array);
+  // }
+  // if (selected === "Quick Sort"){
+  //     return await quickSort(unsorted_array, 0, right);
+  // }
+  // if (selected === "Merge Sort"){
+  //     return await mergeSort(unsorted_array, 0, right);
+  // }
+  
 
 
 function removeFromArray(arr, elt) {
@@ -30,8 +58,8 @@ function removeFromArray(arr, elt) {
 // }
  
 function heuristic(a,b){
-  var d = //abs(a.i - b.i) + abs(a.j - b.j); 
-  dist(a.i,b.i,a.j,b.j);
+  var d = abs(a.i - b.i) + abs(a.j - b.j); 
+  //dist(a.i,b.i,a.j,b.j);
   return d;
 }
 
@@ -163,12 +191,24 @@ var w;
 var h;
 var path =[];
 
-
+///***Dijkrata modifation required */
 function Spot(i,j) {
   this.i = i;
   this.j = j;
-  this.f = 0;
-  this.g = 0;
+
+  console.log("selected before SPOT",selected);
+  if(selected === "Dijkrata's Algorithm"){
+    this.f = 100000000;
+    this.g = 100000000;    
+  }
+  else{
+    this.f = 0;
+    this.g = 0; 
+  }
+  
+  
+  // this.f = 0;
+  // this.g = 0;
   this.h = 0;
   this.isStart = false;
   this.isEnd = false;
@@ -254,6 +294,8 @@ this.clicked = function() {
         set_start = 2;
         console.log("Value of set_start", set_start);
         start=grid[start_x][start_y];
+        // start.f=0;
+        // start.g=0;
         document.getElementById("setEnd").disabled = false;
         document.getElementById("Instruction").innerHTML = "Click Set End button";
         document.body.style.background = "rgb(90, 145, 22)";
@@ -539,7 +581,11 @@ function draw() {
       }//THIS IS GRID CONSTRUCT
       
       if(started){
+        ///*****A* Algorithm */
+        if(selected === "A* Algorithm")
+        {
 
+            ///code begins//
           if (openSet.length > 0){
             console.log("open set", openSet);
             //we can keep going
@@ -611,6 +657,310 @@ function draw() {
             //return;  // no solution  
             //         
           }//**ELSE's }} */
+        }//A**algorithm ends//
+
+        if(selected === "Depth First Search")
+        {
+
+            ///code begins//
+            if (openSet.length > 0){
+              console.log("open set", openSet);
+              //we can keep going
+         
+               
+         
+               // var winner = 0;
+               // for(var i=0; i < openSet.length; i++){
+               //   if (openSet[i].f < openSet[winner].f){
+               //     winner=i;
+         
+               //   }
+               // }
+         
+               // var current = openSet[winner];
+               //current must be first element of queue
+                var current = openSet.pop();
+         
+               if (current === end){
+                 //add path
+                 noLoop();
+                 
+                 console.log("DONE!");
+               }
+         
+                    
+               //removeFromArray(openSet, current);
+               closeSet.push(current);
+               //**2ND EDIT */
+            
+               var neighbours = current.neighbours;
+               for ( var i = 0; i < neighbours.length; i++)
+               {
+                   var neighbour = neighbours[i];
+                   if(!closeSet.includes(neighbour)&& !neighbour.wall)
+                   { var newpath=false;
+                     if(openSet.includes(neighbour)){  
+                       newPath=true;
+                     }
+                     else{
+                   openSet.push(neighbour);
+                   newPath = true;
+                     }
+         
+                   if(newPath){
+                     neighbour.previous=current;
+                   }
+                   
+                   //closeSet.push(neighbour);
+                   
+         
+                  }
+                   // if(!closeSet.includes(neighbour) && !neighbour.wall){
+                   //   var tempG = current.g + heuristic(neighbour,current);
+         
+                   //   var newPath = false;
+                   //   if(openSet.includes(neighbour)){
+                   //     if (tempG < neighbour.g){
+                   //       neighbour.g = tempG;
+                   //       newPath=true;
+                   //     }
+                   //   }else{
+                   //     neighbour.g= tempG;
+                   //     newPath=true;
+                   //     openSet.push(neighbour);
+                   //   }
+         
+                   //   if(newPath){
+         
+                   //   neighbour.h = heuristic(neighbour, end); 
+                   //   neighbour.f = neighbour.g + neighbour.f;
+                   //   neighbour.previous = current;
+                   //   }
+                   // }
+              }
+         
+         
+           }//**If OPEN SET's } */
+
+          else {  
+            console.log("no solution");
+            document.getElementById("Instruction").innerHTML = "NO PATH FOUND...";
+            document.getElementById("Instruction").style.color= "white";
+            document.body.style.background= "rgb(90, 145, 22)";
+            
+            
+            ended = true;
+            noLoop();
+            //return;  // no solution  
+            //         
+          }//**ELSE's }} */
+        }//DFS**algorithm ends//
+
+        //**BFS STARTS***////
+
+        if(selected === "Breadth First Search")
+        {
+
+            ///code begins//
+            if (openSet.length > 0){
+              console.log("open set", openSet);
+              //we can keep going
+         
+               
+         
+               // var winner = 0;
+               // for(var i=0; i < openSet.length; i++){
+               //   if (openSet[i].f < openSet[winner].f){
+               //     winner=i;
+         
+               //   }
+               // }
+         
+               // var current = openSet[winner];
+               //current must be first element of queue
+                var current = openSet.shift();
+         
+               if (current === end){
+                 //add path
+                 noLoop();
+                 
+                 console.log("DONE!");
+               }
+         
+                    
+               //removeFromArray(openSet, current);
+               closeSet.push(current);
+               //**2ND EDIT */
+            
+               var neighbours = current.neighbours;
+               for ( var i = 0; i < neighbours.length; i++)
+               {
+                   var neighbour = neighbours[i];
+                   if(!closeSet.includes(neighbour)&& !neighbour.wall)
+                   { var newpath=false;
+                     if(openSet.includes(neighbour)){  
+                       newPath=true;
+                     }
+                     else{
+                   openSet.push(neighbour);
+                   newPath = true;
+                     }
+         
+                   if(newPath){
+                     neighbour.previous=current;
+                   }
+                   
+                   //closeSet.push(neighbour);
+                   
+         
+                  }
+                   // if(!closeSet.includes(neighbour) && !neighbour.wall){
+                   //   var tempG = current.g + heuristic(neighbour,current);
+         
+                   //   var newPath = false;
+                   //   if(openSet.includes(neighbour)){
+                   //     if (tempG < neighbour.g){
+                   //       neighbour.g = tempG;
+                   //       newPath=true;
+                   //     }
+                   //   }else{
+                   //     neighbour.g= tempG;
+                   //     newPath=true;
+                   //     openSet.push(neighbour);
+                   //   }
+         
+                   //   if(newPath){
+         
+                   //   neighbour.h = heuristic(neighbour, end); 
+                   //   neighbour.f = neighbour.g + neighbour.f;
+                   //   neighbour.previous = current;
+                   //   }
+                   // }
+              }
+         
+         
+           }//**If OPEN SET's } */
+
+          else {  
+            console.log("no solution");
+            document.getElementById("Instruction").innerHTML = "NO PATH FOUND...";
+            document.getElementById("Instruction").style.color= "white";
+            document.body.style.background= "rgb(90, 145, 22)";
+            
+            
+            ended = true;
+            noLoop();
+            //return;  // no solution  
+            //         
+          }//**ELSE's }} */
+        }//BFS**algorithm ends//
+
+        if(selected === "Dijkrata's Algorithm")
+        {
+
+          //change start property
+          if(start.f!==0){
+            start.f=0;
+          }
+          if(start.g!==0){
+            start.g=0;
+          }
+
+
+            ///code begins//
+            if (openSet.length > 0){
+              console.log("open set", openSet);
+              //we can keep going
+         
+               
+         
+               var winner = 0;
+               for(var i=0; i < openSet.length; i++){
+                 if (openSet[i].f < openSet[winner].f){
+                   winner=i;
+         
+                 }
+               }
+         
+               var current = openSet[winner];
+               //current must be first element of queue
+               //  var current = openSet.pop();
+         
+               if (current === end){
+                 //add path
+                 noLoop();
+                 
+                 console.log("DONE!");
+               }
+         
+                    
+               removeFromArray(openSet, current);
+               closeSet.push(current);
+               //**2ND EDIT */
+            
+               var neighbours = current.neighbours;
+               for ( var i = 0; i < neighbours.length; i++)
+               {
+                   var neighbour = neighbours[i];
+                   // if(!closeSet.includes(neighbour)&& !neighbour.wall)
+                   // { var newpath=false;
+                   //   if(openSet.includes(neighbour)){  
+                   //     newPath=true;
+                   //   }
+                   //   else{
+                   // openSet.push(neighbour);
+                   // newPath = true;
+                   //   }
+         
+                   // if(newPath){
+                   //   neighbour.previous=current;
+                   // }
+                   
+                   
+                   
+         
+                  
+                   if(!closeSet.includes(neighbour) && !neighbour.wall){
+                     var tempG = current.g + 1 /*+ heuristic(neighbour,current)*/;
+         
+                     var newPath = false;
+                     if(openSet.includes(neighbour)){
+                       if (tempG < neighbour.g){
+                         neighbour.g = tempG;
+                         newPath=true;
+                       }
+                     }else{
+                       neighbour.g= tempG;
+                       newPath=true;
+                       openSet.push(neighbour);
+                     }
+         
+                     if(newPath){
+         
+                     /*neighbour.h = heuristic(neighbour, end);*/ 
+                     neighbour.f = neighbour.g /*+ neighbour.f*/;
+                     neighbour.previous = current;
+                     }
+                   }
+              }
+         
+         
+           }//**If OPEN SET's } */
+
+          else {  
+            console.log("no solution");
+            document.getElementById("Instruction").innerHTML = "NO PATH FOUND...";
+            document.getElementById("Instruction").style.color= "white";
+            document.body.style.background= "rgb(90, 145, 22)";
+            
+            
+            ended = true;
+            noLoop();
+            //return;  // no solution  
+            //         
+          }//**ELSE's }} */
+        }//BFS**algorithm ends//
+
           //Draw current state of everything
 
 
@@ -630,7 +980,7 @@ function draw() {
 
           
         
-        if(ended===false){  //draw the PATH
+          if(ended===false){  //draw the PATH
           path =[];
           var temp = current;
           path.push(temp);
@@ -638,12 +988,15 @@ function draw() {
               path.push(temp.previous);
               temp=temp.previous;
             }
-        }
+        
+        
 
           for (var i=0; i< path.length; i++){
             path[i].show(color(0,0,255));
             //Path is BLUE
           }//THIS IS PATH
+
+        }//This is A*Algo's  
       }//THIS IS STARTED'S
 
 
